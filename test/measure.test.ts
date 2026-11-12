@@ -48,7 +48,13 @@ describe('real measurements', () => {
 	});
 
 	it('passes a Set-based check as O(n)', async () => {
-		await expect(hasDuplicate).toHaveComplexity('linear', range);
+		// Explicit sizes keep the Set small enough to stay in CPU cache. With
+		// millions of entries cache misses make each insert slower, which shows
+		// up (correctly) as faster-than-linear growth on some machines.
+		await expect(hasDuplicate).toHaveComplexity('linear', range, {
+			sizes: [10_000, 20_000, 40_000, 80_000, 160_000],
+			reps: 9,
+		});
 	});
 
 	it('passes a Map lookup as O(1)', async () => {

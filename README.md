@@ -175,6 +175,7 @@ Results are stored in a variable the JIT can't see through, so it can't optimise
 - **Polynomial degree is reliable:** O(1), O(n), O(n²) and O(n³) are far apart. The test suite runs real timings and passes repeatedly, including with every CPU core busy with other work.
 - **Log factors are not reliable:** over a 16× range, n vs n log n, or 1 vs log n, are within measurement noise. `bestFit` may report a neighbour, and an O(n log n) function will usually pass an `O(n)` check. Use this library to catch degree changes like n → n², which are the costly ones.
 - **Make the input match the case you care about.** Complexity depends on the input. A sort is fast on sorted data, and a hash map is slow when every key collides. The generator is where you describe the worst case.
+- **Hardware isn't perfectly O(n).** When data outgrows the CPU cache, such as a `Set` or `Map` with millions of entries, each operation gets slower, and the measured growth goes up. That is real behaviour, but if you want to test the algorithm, keep sizes moderate with `sizes`.
 - **Very fast functions** (well under a microsecond even at large n) are hard to time. You'll get a warning; pass larger `sizes` or measure a batch of calls.
 - Each assertion takes about 1–5 seconds. Keep these tests in their own file, and run test files serially (`fileParallelism: false` in Vitest) so they don't compete for CPU.
 - Running Node with `--expose-gc` gives steadier numbers.
