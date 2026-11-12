@@ -1,5 +1,7 @@
 # big-oh-no
 
+[![CI](https://github.com/Deepanjal-s/big-oh-no/actions/workflows/ci.yml/badge.svg)](https://github.com/Deepanjal-s/big-oh-no/actions/workflows/ci.yml) ![license](https://img.shields.io/badge/license-MIT-blue) ![dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
+
 **Catch O(n²) regressions in your tests.**
 
 `big-oh-no` checks how a function's running time *grows* as its input grows, and fails the test when it grows faster than you allow. It works in Vitest, Jest and `node:test`.
